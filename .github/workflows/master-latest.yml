@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ github.repository_owner }}/celebro
           tags: |
             type=raw,value=latest
             type=raw,value=${{ github.sha }}
@@ -49,11 +49,13 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          pull: true # Pull new version of base image, always; avoid bit-rot.
+          pull: true
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             CEREBRO_VERSION=${{ github.event.inputs.cerebro_version }}
           # Tag :0.9.4 and :latest
-          tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:${{ github.event.inputs.cerebro_version }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/celebro:latest,
+            ghcr.io/${{ github.repository_owner }}/celebro:${{ github.event.inputs.cerebro_version }}
