@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/celebro
+          images: ghcr.io/${{ github.repository_owner.toLowerCase() }}/celebro
           tags: |
             type=raw,value=latest
             type=raw,value=${{ github.sha }}
@@ -57,5 +57,5 @@ jobs:
             CEREBRO_VERSION=${{ github.event.inputs.cerebro_version }}
           # Tag :0.9.4 and :latest
           tags: |
-            ghcr.io/${{ github.repository_owner }}/celebro:latest,
-            ghcr.io/${{ github.repository_owner }}/celebro:${{ github.event.inputs.cerebro_version }}
+            ghcr.io/${{ github.repository_owner.toLowerCase() }}/celebro:latest,
+            ghcr.io/${{ github.repository_owner.toLowerCase() }}/celebro:${{ github.event.inputs.cerebro_version }}
